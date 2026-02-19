@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'pizzeria_logs',
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
