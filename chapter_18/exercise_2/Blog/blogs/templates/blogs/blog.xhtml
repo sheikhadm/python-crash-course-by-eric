@@ -1,0 +1,15 @@
+{% extends 'learning_logs/base.xhtml' %}
+{% block content %}
+<h2>{{ blog.name }}</h2>
+
+<ul>
+{% for post in posts %}
+    <li>
+        <strong>{{ post.title }}</strong><br>
+        {{ post.text }}
+    </li>
+{% empty %}
+    <li>No posts in this blog yet.</li>
+{% endfor %}
+</ul>
+{% endblock content %}

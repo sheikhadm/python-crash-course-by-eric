@@ -1,0 +1,22 @@
+{% extends 'blogs/base.xhtml' %}
+{% block content %}
+    <a href="{% url 'blogs:new_blog' %}">Add a new blog</a>
+    <h2>Recent Posts</h2>
+
+    <ul>
+    {% for post in posts %}
+        <li>
+            <strong>{{ post.title }}</strong><br>
+            Blog: 
+            <a href="{% url 'blogs:blog' post.blog.id %}">
+                {{ post.blog.name }}
+            </a><br>
+            {{ post.text|truncatewords:20 }}
+        </li>
+    {% empty %}
+        <li>No posts have been added yet.</li>
+    {% endfor %}
+    </ul>
+
+{% endblock content %}
+{% endblock content %}
