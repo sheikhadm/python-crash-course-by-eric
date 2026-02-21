@@ -1,10 +1,22 @@
 {% extends "blogs/base.xhtml" %}
+
 {% block content %}
-<p><a href="{% url 'blogs:blog' blog.id %}">{{ blog.name }}</a></p>
-<p>Add a new post:</p>
-<form action="{% url 'blogs:new_blogpost' blog.id %}" method='post'>
+
+<div class="card shadow-sm">
+<div class="card-body">
+
+<h4>Add Post — {{ blog.name }}</h4>
+
+<form action="{% url 'blogs:new_blogpost' blog.id %}" method="post">
     {% csrf_token %}
     {{ form.as_div }}
-    <button name='submit'>Add post</button>
+
+    <button class="btn btn-primary mt-3">
+        Add Post
+    </button>
 </form>
+
+</div>
+</div>
+
 {% endblock content %}

@@ -1,11 +1,14 @@
 {% extends 'blogs/base.xhtml' %}
 {% block content %}
+   <div class="card shadow-sm">
+ <div class="card-body">
     {% if form.errors %}
     <p>Your username and password didn't match. Please try again.</p>
 {% endif %}
     <form action="{% url 'accounts:login' %}" method='post'>
         {% csrf_token %}
         {{ form.as_div }}
-        <button name="submit">Log in</button>
-</form>
+<button class="btn btn-primary mt-3">Log in</button></form>
+ </div>
+   </div>
 {% endblock content %}

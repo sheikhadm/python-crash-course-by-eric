@@ -1,15 +1,25 @@
-{% extends 'learning_logs/base.xhtml' %}
-{% block content %}
-<h2>{{ blog.name }}</h2>
+{% extends 'blogs/base.xhtml' %}
 
-<ul>
+{% block content %}
+
+<h2 class="mb-4">{{ blog.name }}</h2>
+
 {% for post in posts %}
-    <li>
-        <strong>{{ post.title }}</strong><br>
-        {{ post.text }}
-    </li>
+<div class="card mb-3 shadow-sm">
+    <div class="card-body">
+
+        <h5>{{ post.title }}</h5>
+        <p>{{ post.text }}</p>
+
+        <a class="btn btn-sm btn-outline-secondary"
+           href="{% url 'blogs:edit_blogpost' post.id %}">
+            Edit
+        </a>
+
+    </div>
+</div>
 {% empty %}
-    <li>No posts in this blog yet.</li>
+<p>No posts in this blog yet.</p>
 {% endfor %}
-</ul>
+
 {% endblock content %}

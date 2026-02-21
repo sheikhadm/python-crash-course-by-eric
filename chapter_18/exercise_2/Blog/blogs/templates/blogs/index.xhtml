@@ -1,22 +1,36 @@
 {% extends 'blogs/base.xhtml' %}
-{% block content %}
-    <a href="{% url 'blogs:new_blog' %}">Add a new blog</a>
-    <h2>Recent Posts</h2>
 
-    <ul>
-    {% for post in posts %}
-        <li>
-            <strong>{{ post.title }}</strong><br>
-            Blog: 
+{% block content %}
+
+<div class="d-flex justify-content-between mb-3">
+    <h2>Recent Posts</h2>
+    <a class="btn btn-primary" href="{% url 'blogs:new_blog' %}">
+        New Blog
+    </a>
+</div>
+
+{% for post in posts %}
+<div class="card mb-3 shadow-sm">
+    <div class="card-body">
+
+        <h5 class="card-title">{{ post.title }}</h5>
+
+        <p class="text-muted">
+            Blog:
             <a href="{% url 'blogs:blog' post.blog.id %}">
                 {{ post.blog.name }}
-            </a><br>
-            {{ post.text|truncatewords:20 }}
-        </li>
-    {% empty %}
-        <li>No posts have been added yet.</li>
-    {% endfor %}
-    </ul>
+            </a>
+        </p>
 
-{% endblock content %}
+        <p class="card-text">
+            {{ post.text|truncatewords:20 }}
+        </p>
+
+    </div>
+</div>
+
+{% empty %}
+<p>No posts yet.</p>
+{% endfor %}
+
 {% endblock content %}

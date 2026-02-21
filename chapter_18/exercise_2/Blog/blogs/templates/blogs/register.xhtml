@@ -1,8 +1,11 @@
 {% extends "blogs/base.xhtml" %}
 {% block content %}
+<div class="card shadow-sm">
+<div class="card-body">
 <form action="{% url 'accounts:register' %}" method='post'>
     {% csrf_token %}
     {{ form.as_div }}
-    <button name="submit">Register</button>
-</form>
+<button class="btn btn-primary mt-3">Log in</button></form>
+</div>
+</div>
 {% endblock content %}
