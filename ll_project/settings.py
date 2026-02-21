@@ -33,7 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     #My apps
     'learning_logs',
-    'accounts'
+    'accounts',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -122,3 +122,4 @@ STATIC_URL = 'static/'
 
 LOGIN_REDIRECT_URL = 'learning_logs:index'
 LOGOUT_REDIRECT_URL = 'learning_logs:index'
+LOGIN_URL = 'accounts:login'

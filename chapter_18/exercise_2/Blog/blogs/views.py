@@ -1,4 +1,6 @@
 from django.shortcuts import render,get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from django.http import Http404
 from .models import Blog,BlogPost
 from .forms import BlogForm,BlogPostForm
 
@@ -12,11 +14,13 @@ def index(request):
 
 def blog(request, blog_id):
     blog = get_object_or_404(Blog, id=blog_id)
+    
     posts = blog.blogpost_set.order_by('-date_added')
 
     context = {'blog': blog, 'posts': posts}
     return render(request, 'blogs/blog.xhtml', context)
 
+@login_required
 def new_blog(request):
 
     if request.method != 'POST':
@@ -24,13 +28,18 @@ def new_blog(request):
     else:
         form = BlogForm(data=request.POST)
         if form.is_valid():
-            form.save()
+            new_blog = form.save(commit=False)
+            new_blog.owner = request.user
+            new_blog.save()
             return redirect('blogs:index')
     context = {'form': form}
     return render(request, 'blogs/new_blog.xhtml', context)
 
+@login_required
 def new_blogpost(request,blog_id):
     blog = get_object_or_404(Blog, id=blog_id)
+    if blog.owner != request.user:
+        raise Http404
     if request.method != 'POST':
         form = BlogPostForm()
     else:
@@ -44,9 +53,12 @@ def new_blogpost(request,blog_id):
     context = {'blog': blog, 'form': form}
     return render(request, 'blogs/new_blogpost.xhtml', context)
 
+@login_required
 def edit_blogpost(request,blogpost_id):
     post = get_object_or_404(BlogPost, id=blogpost_id)
     blog = post.blog
+    if blog.owner != request.user:
+        raise Http404
     if request.method != 'POST':
         form = BlogPostForm(instance=post)
     else:
